@@ -29,3 +29,4 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 - Gift images live in a private storage bucket; store the file path in gifts.image_url and sign URLs on read (workspace blocks public buckets).
+- Only users with the admin role (user_roles) may write gifts/images; the first account created gets admin via an auth.users trigger.

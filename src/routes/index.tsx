@@ -81,8 +81,14 @@ function Index() {
           </p>
           <div className="mx-auto mt-10 max-w-xl rounded-3xl border border-border bg-card/80 p-6 text-left shadow-soft backdrop-blur">
             <p className="text-sm leading-relaxed text-foreground">
-              <span className="font-semibold text-primary">Olá, meu amigo secreto! 🎄</span>{" "}
-              Calma! Antes de sair comprando qualquer coisa, consulte este guia. Aqui estão algumas dicas para aumentar consideravelmente suas chances de acertar no presente!
+              <span className="font-semibold text-primary">Olá, meu amigo secreto!</span>{" "}
+              Criei este espaço para te dar uma força na hora da escolha. Como amo livros, mas sei que
+              cada leitor tem seus gastos específicos (e para evitar o risco de você me dar um que eu já
+              tenha lido!), reuni várias opções legais e variadas.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-foreground">
+              Pode escolher de olhos fechados, pois além dos livros, tem outras opções também: qualquer
+              uma das sugestões vai me fazer muito feliz!
             </p>
           </div>
         </div>

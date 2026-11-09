@@ -49,6 +49,7 @@ function Index() {
 
   async function confirmDelete() {
     if (!deleting) return;
+    qc.setQueryData<Gift[]>(["gifts"], (old) => old?.filter((g) => g.id !== deleting.id));
     const { error } = await supabase.from("gifts").delete().eq("id", deleting.id);
     if (error) return toast.error("Não foi possível excluir.");
     await removeImage(deleting.image_url);

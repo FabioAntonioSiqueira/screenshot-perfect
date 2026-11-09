@@ -28,3 +28,4 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+- Gift images live in a private storage bucket; store the file path in gifts.image_url and sign URLs on read (workspace blocks public buckets).

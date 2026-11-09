@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useAdmin } from "@/hooks/use-admin";
 import { useMemo, useState } from "react";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { ExternalLink, Gift as GiftIcon, Pencil, Plus, Search, Snowflake, Sparkles, Trash2 } from "lucide-react";
@@ -36,6 +37,7 @@ const FLAKES = Array.from({ length: 14 }, (_, i) => ({
 function Index() {
   const { data: gifts } = useSuspenseQuery(giftsQuery);
   const qc = useQueryClient();
+  const { session, isAdmin } = useAdmin();
   const [filter, setFilter] = useState("todos");
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -105,7 +107,7 @@ function Index() {
               <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar pelo nome" className="h-10 rounded-full pl-10" />
             </div>
-            <Button className="h-10 px-5" onClick={openNew}><Plus /> Adicionar presente</Button>
+            {isAdmin && <Button className="h-10 px-5" onClick={openNew}><Plus /> Adicionar presente</Button>}
           </div>
         </div>
 
@@ -118,9 +120,9 @@ function Index() {
               {gifts.length === 0 ? "A lista ainda está vazia" : "Nenhum presente encontrado"}
             </h2>
             <p className="mt-2 max-w-sm text-muted-foreground">
-              {gifts.length === 0 ? "O Papai Noel ainda está pensando… adicione o primeiro desejo!" : "Tente outra categoria ou outro nome."}
+              {gifts.length === 0 ? (isAdmin ? "O Papai Noel ainda está pensando… adicione o primeiro desejo!" : "Os desejos ainda estão sendo escritos. Volte em breve!") : "Tente outra categoria ou outro nome."}
             </p>
-            {gifts.length === 0 && <Button className="mt-6" onClick={openNew}><Plus /> Adicionar presente</Button>}
+            {gifts.length === 0 && isAdmin && <Button className="mt-6" onClick={openNew}><Plus /> Adicionar presente</Button>}
           </div>
         ) : (
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -135,12 +137,12 @@ function Index() {
                   <span className="absolute left-4 top-4 rounded-full bg-card/90 px-3 py-1 text-xs font-semibold text-accent-foreground backdrop-blur">
                     {categoryLabel(g.category)}
                   </span>
-                  <div className="absolute right-3 top-3 flex gap-1.5 opacity-100 transition md:opacity-0 md:group-hover:opacity-100">
+                  {isAdmin && <div className="absolute right-3 top-3 flex gap-1.5 opacity-100 transition md:opacity-0 md:group-hover:opacity-100">
                     <button aria-label="Editar" onClick={() => { setEditing(g); setDialogOpen(true); }}
                       className="rounded-full bg-card/90 p-2 text-accent-foreground backdrop-blur hover:bg-card"><Pencil className="h-4 w-4" /></button>
                     <button aria-label="Excluir" onClick={() => setDeleting(g)}
                       className="rounded-full bg-card/90 p-2 text-destructive backdrop-blur hover:bg-card"><Trash2 className="h-4 w-4" /></button>
-                  </div>
+                  </div>}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="font-display text-xl font-semibold">{g.name}</h3>
@@ -157,7 +159,16 @@ function Index() {
         )}
       </main>
 
-      <footer className="pb-10 text-center text-sm text-muted-foreground">Feito com carinho ❄️ Boas festas!</footer>
+      <footer className="pb-10 text-center text-sm text-muted-foreground">
+        Feito com carinho ❄️ Boas festas!
+        <div className="mt-2 text-xs">
+          {session ? (
+            <button className="hover:text-primary" onClick={() => supabase.auth.signOut()}>Sair</button>
+          ) : (
+            <Link to="/auth" className="hover:text-primary">Área da dona da lista</Link>
+          )}
+        </div>
+      </footer>
 
       <GiftDialog open={dialogOpen} onOpenChange={setDialogOpen} gift={editing} />
 

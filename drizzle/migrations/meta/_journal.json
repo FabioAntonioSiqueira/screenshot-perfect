@@ -8,6 +8,13 @@
       "when": 1794229043437,
       "tag": "0000_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794229428595,
+      "tag": "0001_owner_only_editing",
+      "breakpoints": true
     }
   ]
 }

@@ -35,15 +35,15 @@ export function GiftDialog({ open, onOpenChange, gift }: Props) {
 
   function pickFile(f: File | undefined) {
     if (!f) return;
-    if (!f.type.startsWith("image/")) return toast.error("Escolha um arquivo de imagem.");
-    if (f.size > 10 * 1024 * 1024) return toast.error("A imagem deve ter até 10 MB.");
+    if (!f.type.startsWith("image/")) { toast.error("Escolha um arquivo de imagem."); return; }
+    if (f.size > 10 * 1024 * 1024) { toast.error("A imagem deve ter até 10 MB."); return; }
     setFile(f);
     setPreview(URL.createObjectURL(f));
   }
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim()) return toast.error("Dê um nome ao presente.");
+    if (!name.trim()) { toast.error("Dê um nome ao presente."); return; }
     setSaving(true);
     try {
       let image_url = gift?.image_url ?? null;

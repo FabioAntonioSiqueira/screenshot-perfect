@@ -51,7 +51,7 @@ function Index() {
     if (!deleting) return;
     qc.setQueryData<Gift[]>(["gifts"], (old) => old?.filter((g) => g.id !== deleting.id));
     const { error } = await supabase.from("gifts").delete().eq("id", deleting.id);
-    if (error) return toast.error("Não foi possível excluir.");
+    if (error) { toast.error("Não foi possível excluir."); await qc.invalidateQueries({ queryKey: ["gifts"] }); return; }
     await removeImage(deleting.image_url);
     await qc.invalidateQueries({ queryKey: ["gifts"] });
     toast.success("Presente removido da lista.");

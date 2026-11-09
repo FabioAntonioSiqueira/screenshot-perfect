@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAdmin } from "@/hooks/use-admin";
 import { useMemo, useState } from "react";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { ExternalLink, Gift as GiftIcon, Pencil, Plus, Search, Snowflake, Sparkles, Trash2 } from "lucide-react";
+import { ExternalLink, Gift as GiftIcon, Pencil, Plus, Search, Snowflake, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -73,10 +73,7 @@ function Index() {
 
       <header className="bg-hero relative px-6 pb-14 pt-20 text-center">
         <div className="mx-auto max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-secondary-foreground">
-            <Sparkles className="h-3.5 w-3.5" /> Amigo secreto · Natal
-          </span>
-          <h1 className="mt-6 font-display text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+          <h1 className="font-display text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
             Guia de Sobrevivência do Meu Amigo Secreto:
           </h1>
           <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
